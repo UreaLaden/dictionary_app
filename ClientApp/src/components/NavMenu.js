@@ -5,14 +5,15 @@ import { Icon, Toggle } from "@fluentui/react";
 
 export class NavMenu extends Component {
   static displayName = NavMenu.name;
-
+  
   constructor(props) {
     super(props);
 
     this.toggleNavbar = this.toggleNavbar.bind(this);
     this.state = {
-      collapsed: true,
+      searchParam:''
     };
+    this.searchRef = React.createRef();
   }
 
   toggleNavbar() {
@@ -20,8 +21,15 @@ export class NavMenu extends Component {
       collapsed: !this.state.collapsed,
     });
   }
-
+ 
+  handleSearch = (value) => {
+    this.props.setSearchWord(value);
+  }
+  
   render() {
+    let toggleStyles={
+      
+    };
     let toggleIcon = <Icon className={styles.moonIcon} iconName={"moon"} />;
     return (
       <div className={styles.navBarContainer}>
@@ -36,7 +44,7 @@ export class NavMenu extends Component {
                   <select className={styles.fontOptions}>
                     <option value="Sans Serif">Sans Serif</option>
                     <option value="Serif">Serif</option>
-                    <option selected value="Mono">
+                    <option defaultValue value="Mono">
                       Mono
                     </option>
                   </select>
@@ -46,12 +54,19 @@ export class NavMenu extends Component {
               <div className={styles.verticalDivider}></div>
               <Toggle
                 className={styles.toggle}
+                styles={toggleStyles}
+                defaultChecked
                 inlineLabel
                 label={<div>{toggleIcon}</div>}
               />
             </div>
           </div>
-          <SearchBox className={styles.searchBox} placeholder={"Search"} />
+          <SearchBox 
+            className={styles.searchBox} 
+            ref={this.searchRef} 
+            placeholder={"Search for any word..."} 
+            onSearch={this.handleSearch}
+            />
         </header>
       </div>
     );

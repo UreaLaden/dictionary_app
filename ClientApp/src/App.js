@@ -1,22 +1,26 @@
 import React, { Component } from 'react';
-import { Route, Routes } from 'react-router-dom';
-import AppRoutes from './AppRoutes';
 import { Layout } from './components/Layout';
 import { NavMenu } from './components/NavMenu';
+import { Dictionary } from './components/Dictionary';
 
 export default class App extends Component {
   static displayName = App.name;
 
+  constructor(props){
+    super(props)
+    this.state ={
+      searchWord:''
+    }
+  }
+  setSearchWord = (value) => {
+    this.setState({searchWord:value})
+  }
+
   render() {
     return (
       <Layout>
-        <NavMenu/>
-        <Routes>
-          {AppRoutes.map((route, index) => {
-            const { element, ...rest } = route;
-            return <Route key={index} {...rest} element={element} />;
-          })}
-        </Routes>
+        <NavMenu setSearchWord={this.setSearchWord}/>
+        <Dictionary searchWord={this.state.searchWord}/>
       </Layout>
     );
   }

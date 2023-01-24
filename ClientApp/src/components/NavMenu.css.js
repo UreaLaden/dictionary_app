@@ -15,8 +15,8 @@ export const styles = mergeStyleSets({
     fontStyle: "bold",
     input: {
       "::placeholder": {
-        color: Colors.JET_BLACK,
-        fontStyle: "bold",
+        color: Colors.LIGHT_GREY_TWO,
+        fontWeight:"900px"
       },
     },
   },
@@ -43,7 +43,18 @@ export const styles = mergeStyleSets({
     gridColumn: "5 / -1",
     margin: "0",
     alignItems:'center',
-    justifyContent:'center'
+    justifyContent:'center',
+    'button':{
+        background:Colors.CHARCOAL_GREY_MEDIUM,
+        'span':{
+            background:Colors.WHITE
+        }
+    },
+    ':hover':{
+        'button':{
+            background:Colors.LIGHT_PURPLE
+        }
+    }
   },
   verticalDivider: {
     gridColumn:"4 / 5",

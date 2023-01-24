@@ -13,13 +13,15 @@ export class Dictionary extends Component {
     this.state = {
       details: {},
       loading: true,
+      searchWord:''
     };
   }
 
-  componentDidMount() {
-    this.queryWord("intelligent");
+  componentDidUpdate(prevProps){
+    if(this.props.searchWord !== prevProps.searchWord){
+      this.queryWord(this.props.searchWord);
+    }
   }
-
   static RenderDetails(details) {
     const audioUrl = details.phonetics.filter(
       (value, idx) => value.audio !== ""
@@ -91,21 +93,19 @@ export class Dictionary extends Component {
       </div>
     );
   }
-
-  render() {
-    let contents = this.state.loading ? (
-      <div>...Loading</div>
-    ) : (
-      Dictionary.RenderDetails(this.state.details)
-    );
-    return <div>{contents}</div>;
-  }
-
   async queryWord(word) {
     const response = await fetch(
       `https://api.dictionaryapi.dev/api/v2/entries/en/${word}`
     );
     const data = await response.json();
-    this.setState({ details: data[0], loading: false });
+    this.setState({ details: data[0],loading:false});
+  }
+  render() {
+    let contents = this.state.loading ? (
+      <div></div>
+    ) : (
+      Dictionary.RenderDetails(this.state.details)
+    );
+    return <div>{contents}</div>;
   }
 }
