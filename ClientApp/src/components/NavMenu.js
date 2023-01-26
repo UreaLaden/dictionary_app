@@ -2,16 +2,18 @@ import React, { Component } from "react";
 import { SearchBox } from "@fluentui/react";
 import { styles } from "./NavMenu.css";
 import { Icon, Toggle } from "@fluentui/react";
+import {DropDown} from './DropDown';
 
 export class NavMenu extends Component {
   static displayName = NavMenu.name;
-  
+
   constructor(props) {
     super(props);
 
     this.toggleNavbar = this.toggleNavbar.bind(this);
     this.state = {
-      searchParam:''
+      searchParam: "",
+      currentFont: "Mono",
     };
     this.searchRef = React.createRef();
   }
@@ -21,15 +23,28 @@ export class NavMenu extends Component {
       collapsed: !this.state.collapsed,
     });
   }
- 
+
   handleSearch = (value) => {
     this.props.setSearchWord(value);
-  }
-  
+  };
+
+  // onRenderPlaceHolder = (props) => {
+  //   console.log(this.panelRef.current?.panel);
+  //   return (
+  //     <div className={styles.familySelector}>
+  //       <span>{props.placeholder}</span>
+  //       <Icon iconName={"arrow-down"} />
+  //     </div>
+  //   );
+  // };
+  // onRenderCarotDown = (props) => {
+  //   console.log(this.panelRef.current?.panel);
+  //   return (
+  //       <Icon iconName={"arrow-down"} />
+  //   );
+  // };
+
   render() {
-    let toggleStyles={
-      
-    };
     let toggleIcon = <Icon className={styles.moonIcon} iconName={"moon"} />;
     return (
       <div className={styles.navBarContainer}>
@@ -40,33 +55,23 @@ export class NavMenu extends Component {
             </div>
             <div className={styles.themes}>
               <div className={styles.fontFamily}>
-                <div className={styles.familySelector}>
-                  <select className={styles.fontOptions}>
-                    <option value="Sans Serif">Sans Serif</option>
-                    <option value="Serif">Serif</option>
-                    <option defaultValue value="Mono">
-                      Mono
-                    </option>
-                  </select>
-                </div>
+                  <DropDown iconName={'arrow-down'}/>
               </div>
-              <Icon className={styles.downArrow} iconName={"arrow-down"} />
               <div className={styles.verticalDivider}></div>
               <Toggle
                 className={styles.toggle}
-                styles={toggleStyles}
                 defaultChecked
                 inlineLabel
                 label={<div>{toggleIcon}</div>}
               />
             </div>
           </div>
-          <SearchBox 
-            className={styles.searchBox} 
-            ref={this.searchRef} 
-            placeholder={"Search for any word..."} 
+          <SearchBox
+            className={styles.searchBox}
+            ref={this.searchRef}
+            placeholder={"Search for any word..."}
             onSearch={this.handleSearch}
-            />
+          />
         </header>
       </div>
     );

@@ -68,15 +68,32 @@ export const styles = mergeStyleSets({
     justifySelf:'end'
   },
   fontOptions:{
-    all:'unset',
+    // all:'unset',
+    border:'none',
+    appearance:'none',
+    fontFamily:'inherit',
     textAlign:"right",
+    '::active':{
+        border:'none'
+    },
+    '::before':{
+        backgroundColor:'red'
+    },
+    '::after':{
+        border:"2px solid green"
+    }
+},
+mainDropDown:{
+    
 },
 familySelector:{
+    display:'flex',
+    justifyContent:'space-between'
 },
 fontFamily:{
-    gridColumn:" 1 / 3",
+    gridColumn:" 1 / 4",
     alignSelf:'center',
     justifySelf:'start',
-    width:'50%'
+    width:'100%',
   }
 });
