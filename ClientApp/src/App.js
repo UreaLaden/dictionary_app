@@ -1,26 +1,30 @@
-import React, { Component } from 'react';
-import { Layout } from './components/Layout';
-import { NavMenu } from './components/NavMenu';
-import { Dictionary } from './components/Dictionary';
+import React, { Component } from "react";
+import { Layout } from "./components/Layout";
+import { NavMenu } from "./components/NavMenu";
+import { Dictionary } from "./components/Dictionary";
+import { FontContext } from "./store/dictionary-context";
+import { dropdownOptions } from "./utils/constants";
 
 export default class App extends Component {
   static displayName = App.name;
+  static contextType = FontContext;
 
-  constructor(props){
-    super(props)
-    this.state ={
-      searchWord:''
-    }
+  componentDidMount(){
+    dropdownOptions.forEach((option) => {
+      this.context.addFontOption(option);
+    });
+    this.context.setFont(dropdownOptions[0].family)
   }
+  
   setSearchWord = (value) => {
-    this.setState({searchWord:value})
-  }
-
+    this.setState({ searchWord: value });
+  };
+  
   render() {
     return (
       <Layout>
-        <NavMenu setSearchWord={this.setSearchWord}/>
-        <Dictionary searchWord={this.state.searchWord}/>
+        <NavMenu />
+        <Dictionary currentFont={this.context.currentFont}/>
       </Layout>
     );
   }

@@ -6,7 +6,7 @@ export const styles = mergeStyleSets({
         fontSize:"1em",
         height:"100%",
         width:"100%",
-        maxWidth:"90%"
+        maxWidth:"90%",
     },
     main:{
         padding:'5%'

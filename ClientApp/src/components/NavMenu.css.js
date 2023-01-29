@@ -31,7 +31,7 @@ export const styles = mergeStyleSets({
   themes: {
     gridColumn: "3 / span 5",
     display: "grid",
-    gridTemplate: "1fr / repeat(7,1fr)",
+    gridTemplate: "1fr / repeat(3,1fr) .5fr repeat(3,1fr)",
     textAlign: "middle",
   },
   navHeader: {},

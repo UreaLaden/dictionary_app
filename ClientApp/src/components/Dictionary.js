@@ -4,52 +4,81 @@ import { AudioPlayer } from "./AudioPlayer";
 import { styles } from "./Dictionary.css";
 import { PartOfSpeech } from "./PartOfSpeech";
 import { Icon } from "@fluentui/react";
+import { FontContext } from "../store/dictionary-context";
 
 export class Dictionary extends Component {
   static displayName = Dictionary.name;
+  static contextType = FontContext;
 
   constructor(props) {
     super(props);
     this.state = {
-      details: {},
+      currentFont: "",
       loading: true,
-      searchWord:''
+      searchWord: "",
     };
   }
 
-  componentDidUpdate(prevProps){
-    if(this.props.searchWord !== prevProps.searchWord){
-      this.queryWord(this.props.searchWord);
-    }
+  componentDidMount(){
+    this.setState(()=>{
+      return {currentFont:this.props.currentFont,loading:true,searchWord:''}
+    })
   }
-  static RenderDetails(details) {
+
+  RenderDetails(details) {
+    if(details === undefined){
+      return <div>Nothing to See Here</div>
+    }
     const audioUrl = details.phonetics.filter(
-      (value, idx) => value.audio !== ""
-    )[0].audio;
+      (value, idx) => value?.audio !== ""
+    )[0];
     return (
       <div className={styles.dictionaryContentMono}>
         <div className={styles.headerContent}>
-          <h1 className={styles.word}>{details.word}</h1>
-          <h4 className={styles.phonetic}>{details.phonetic}</h4>
-          <AudioPlayer className={styles.audioButton} audioSrc={audioUrl} />
+          <h1 
+            className={styles.word}   
+            style={{fontFamily:this.props.currentFont}} >{details.word}</h1>
+          <h4 
+            className={styles.phonetic}
+            style={{fontFamily:this.props.currentFont}}>{details.phonetic}</h4>
+          {audioUrl && (
+            <AudioPlayer
+              className={styles.audioButton}
+              audioSrc={audioUrl.audio}
+            />
+          )}
         </div>
         {details.meanings.map((meaning, idx) => {
           return (
-            <div>
-              <PartOfSpeech partOfSpeech={meaning.partOfSpeech} />
-              <div key={idx}>
+            <div key={meaning + idx}>
+              <PartOfSpeech style={{fontFamily:this.props.currentFont}} partOfSpeech={meaning.partOfSpeech} />
+              <div key={meaning.partOfSpeech + idx}>
                 <If condition={meaning.definitions.length > 0}>
                   <Then>
-                    <h5 className={styles.subheader}>Meaning</h5>
+                    <h5 
+                      className={styles.subheader}
+                      style={{fontFamily:this.props.currentFont}}
+                      >Meaning</h5>
                   </Then>
                 </If>
                 {meaning.definitions.map((definition, idx) => {
                   return (
-                    <ul className={styles.definition} key={idx}>
-                      <li className={styles.definitionItem}>{definition.definition}</li>
+                    <ul
+                      className={styles.definition}
+                      key={styles.definition + idx}
+                    >
+                      <li 
+                        className={styles.definitionItem}
+                        style={{fontFamily:this.props.currentFont}}>
+                        {definition.definition}
+                      </li>
                       <If condition={definition.example}>
                         <Then>
-                          <div className={styles.example}>"{definition.example}"</div>
+                          <div 
+                          className={styles.example}
+                          style={{fontFamily:this.props.currentFont}}>
+                            "{definition.example}"
+                          </div>
                         </Then>
                       </If>
                     </ul>
@@ -64,7 +93,7 @@ export class Dictionary extends Component {
                   <div className={styles.synonymItem}>
                     {meaning.synonyms.map((synonym, idx) => {
                       return (
-                        <div>
+                        <div key={synonym + idx}>
                           <div className={styles.synonym} key={idx}>
                             {synonym}
                           </div>
@@ -78,7 +107,7 @@ export class Dictionary extends Component {
           );
         })}
         <div className={styles.footer}>
-          <div className={styles.divider}/>
+          <div className={styles.divider} />
           <h5 className={styles.subheader}>
             <u>Source</u>
           </h5>
@@ -93,18 +122,12 @@ export class Dictionary extends Component {
       </div>
     );
   }
-  async queryWord(word) {
-    const response = await fetch(
-      `https://api.dictionaryapi.dev/api/v2/entries/en/${word}`
-    );
-    const data = await response.json();
-    this.setState({ details: data[0],loading:false});
-  }
+
   render() {
-    let contents = this.state.loading ? (
+    let contents = this.context.isLoading ? (
       <div></div>
     ) : (
-      Dictionary.RenderDetails(this.state.details)
+      this.RenderDetails(this.context.details)
     );
     return <div>{contents}</div>;
   }
