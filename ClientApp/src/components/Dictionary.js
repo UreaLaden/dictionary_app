@@ -51,7 +51,7 @@ export class Dictionary extends Component {
         {details.meanings.map((meaning, idx) => {
           return (
             <div key={meaning + idx}>
-              <PartOfSpeech style={{fontFamily:this.props.currentFont}} partOfSpeech={meaning.partOfSpeech} />
+              <PartOfSpeech font={this.props.currentFont} partOfSpeech={meaning.partOfSpeech} />
               <div key={meaning.partOfSpeech + idx}>
                 <If condition={meaning.definitions.length > 0}>
                   <Then>
@@ -84,13 +84,19 @@ export class Dictionary extends Component {
                     </ul>
                   );
                 })}
-                <div className={styles.synonyms}>
+                <div 
+                  className={styles.synonyms}
+                  style={{fontFamily:this.props.currentFont}}>
                   <If condition={meaning.synonyms.length > 0}>
                     <Then>
-                      <h5 className={styles.subheader}>Synonyms</h5>
+                      <h5 
+                        className={styles.subheader}
+                        >Synonyms</h5>
                     </Then>
                   </If>
-                  <div className={styles.synonymItem}>
+                  <div 
+                    className={styles.synonymItem}
+                    style={{fontFamily:this.props.currentFont}}>
                     {meaning.synonyms.map((synonym, idx) => {
                       return (
                         <div key={synonym + idx}>
@@ -109,10 +115,12 @@ export class Dictionary extends Component {
         <div className={styles.footer}>
           <div className={styles.divider} />
           <h5 className={styles.subheader}>
-            <u>Source</u>
+            <u style={{fontFamily:this.props.currentFont}}>Source</u>
           </h5>
           <>
-            <a className={styles.source} href={details.sourceUrls}>
+            <a 
+              style={{fontFamily:this.props.currentFont}} 
+              className={styles.source} href={details.sourceUrls}>
               {details.sourceUrls}
             </a>
             &nbsp;
