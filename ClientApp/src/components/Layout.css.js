@@ -9,6 +9,7 @@ export const styles = mergeStyleSets({
         maxWidth:"90%",
     },
     main:{
-        padding:'5%'
+        padding:'5%',
+        height:"100%"
     },
 })

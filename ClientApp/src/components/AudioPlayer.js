@@ -1,7 +1,10 @@
 import React, { Component } from "react";
 import { styles } from "./AudioPlayer.css";
+import { FontContext } from "../store/dictionary-context";
 
 export class AudioPlayer extends Component {
+  static contextType = FontContext;
+
   constructor(props) {
     super(props);
     this.audioRef = React.createRef();
@@ -26,7 +29,7 @@ export class AudioPlayer extends Component {
   render() {
     return (
       <div className={styles.player} onClick={this.Play}>
-        <div className={styles.triangle}>
+        <div className={styles.triangle} id={"triangle"}>
           <audio
             className={styles.audio}
             src={this.props.audioSrc}

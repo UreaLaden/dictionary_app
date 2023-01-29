@@ -6,6 +6,7 @@ import { PartOfSpeech } from "./PartOfSpeech";
 import { Icon } from "@fluentui/react";
 import { FontContext } from "../store/dictionary-context";
 import { Colors } from "../utils/constants";
+import EmptyResult from "./EmptyResult";
 
 export class Dictionary extends Component {
   static displayName = Dictionary.name;
@@ -27,10 +28,10 @@ export class Dictionary extends Component {
   }
 
   RenderDetails(details) {
-    if(details === undefined){
-      return <div>Nothing to See Here</div>
+    if(Object.keys(details).length <= 0){
+      return <EmptyResult/>
     }
-    const audioUrl = details.phonetics.filter(
+    const audioUrl = details.phonetics?.filter(
       (value, idx) => value?.audio !== ""
     )[0];
     return (

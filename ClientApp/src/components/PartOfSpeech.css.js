@@ -9,7 +9,8 @@ export const styles = mergeStyleSets({
     type:{
         gridRow:"1 / span 2",
         gridColumn:"1 / span 1",
-        fontStyle:"italic"
+        fontStyle:"italic",
+        fontSize:"1.1rem"
     },
     line:{
         height:"0",

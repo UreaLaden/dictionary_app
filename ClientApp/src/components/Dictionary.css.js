@@ -19,6 +19,10 @@ definitionItem: {
     'padding-inline-start':'0px',
     listStyle:'none',
     textAlign:'left',
+    fontSize:"1.2rem",
+    "@media screen and (max-width:750px)":{
+      fontSize:"1rem"
+    }
   },
   example: {
     color: Colors.SILVER,
@@ -30,10 +34,11 @@ definitionItem: {
     alignSelf: "bottom",
     position: "relative",
     margin: "5% auto",
+    fontSize:"1.5rem"
   },
   subheader: {
     color: Colors.SILVER,
-    fontSize: "1rem",
+    fontSize: "1.2rem",
     margin: "0",
   },
   word: {
@@ -55,8 +60,8 @@ definitionItem: {
     color: Colors.CHARCOAL_GREY_DARK,
   },
   footer: {
-    lineHeight: "1.5rem",
-    fontSize: "3vw",
+    lineHeight: "2rem",
+    fontSize: "1.1rem",
   },
   synonyms: {
     display: "flex",

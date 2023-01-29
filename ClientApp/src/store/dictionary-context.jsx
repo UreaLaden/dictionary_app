@@ -7,12 +7,14 @@ export const FontContext = React.createContext({
   searchTerm: "",
   details:{},
   darkmodeEnabled:false,
+  errorDetails:{},
   setFont: (font) => {},
   addFontOption: (option) => {},
   setSearchTerm: (word) => {},
   updateWordDetails: (data) => {},
   setIsLoading:() => {},
-  enableDarkmode:(enable) => {}
+  enableDarkmode:(enable) => {},
+  setErrorDetails:() => {}
 });
 
 export const FontContextProvider = (props) => {
@@ -22,10 +24,19 @@ export const FontContextProvider = (props) => {
   const [wordDetails,setWordDetails] = React.useState({});
   const [loading,setLoading] = React.useState(true);
   const [isDarkMode,setIsDarkMode] = React.useState(false);
+  const [errorUI,setErrorUI] = React.useState({});
+
+  const setErrorUIHandler = (data) =>{
+    setErrorUI(error =>{
+      if(data.title !== undefined){
+        return data;
+      }
+    });
+  }
 
   const setIsDarkModeHandler = (isEnabled) =>{
     setIsDarkMode(isEnabled);
-    EnableDarkMode(isEnabled);
+    
   }
 
   const setSelectedFontHandler = (family) => {
@@ -44,7 +55,7 @@ export const FontContextProvider = (props) => {
   };
 
   const updateDetailsHandler = (newDetails) => {
-    setWordDetails(newDetails);
+    setWordDetails(newDetails ?? {});
   }
 
   const setIsLoadingHandler = (isLoading) =>{
@@ -58,12 +69,14 @@ export const FontContextProvider = (props) => {
     details:wordDetails,
     isLoading:loading,
     darkmodeEnabled:isDarkMode,
+    errorDetails:errorUI,
     setFont: setSelectedFontHandler,
     addFontOption: addFontOptionsHandler,
     setSearchTerm:setSearchWordHandler,
     updateWordDetails:updateDetailsHandler,
     setIsLoading:setIsLoadingHandler,
-    enableDarkmode:setIsDarkModeHandler
+    enableDarkmode:setIsDarkModeHandler,
+    setErrorDetails:setErrorUIHandler
   };
 
   return (

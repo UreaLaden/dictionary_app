@@ -4,7 +4,7 @@ import { styles } from "./NavMenu.css";
 import { Icon, Toggle } from "@fluentui/react";
 import { DropDown } from "./DropDown";
 import { FontContext } from "../store/dictionary-context";
-import { Colors } from "../utils/constants";
+import { EnableDarkMode } from "../utils/constants";
 
 export class NavMenu extends Component {
   static displayName = NavMenu.name;
@@ -34,30 +34,35 @@ export class NavMenu extends Component {
   };
 
   onToggleButtonClicked = (event) => {
-    this.context.enableDarkmode(event.target.ariaChecked);
+    this.context.enableDarkmode(!this.state.darkmodeEnabled);
+    EnableDarkMode(!this.state.darkmodeEnabled);
+    this.setState({darkmodeEnabled:!this.state.darkmodeEnabled});
   };
 
   async queryWord(word) {
-    try {
-      const response = await fetch(
-        `https://api.dictionaryapi.dev/api/v2/entries/en/${word}`
-      );
+    try{
       this.context.setIsLoading(true);
-      const data = await response.json();
-      this.context.setIsLoading(false);
-      this.context.updateWordDetails(data[0]);
-    } catch (error) {
-      console.log(`Unable to fetch: ${error}`);
+      fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`)
+      .then((response) => {
+        return response;
+      })
+      .then((response) => response.json())
+      .then((data) => {
+        this.context.updateWordDetails(data[0]);
+        this.context.setErrorDetails(data);
+        this.context.setIsLoading(false);
+      })          
+      .catch((error) => {
+        console.log(`Unable to fetch: ${error}`);
+      });
+    }catch(error){
+      console.log('There was an issue with the request');
+      console.table(error);
     }
   }
 
   render() {
-    let toggleIcon = (
-      <Icon
-        className={styles.moonIcon}
-        iconName={"moon"}
-      />
-    );
+    let toggleIcon = <Icon className={styles.moonIcon} iconName={"moon"} />;
     return (
       <div className={styles.navBarContainer}>
         <header className={styles.navHeader}>

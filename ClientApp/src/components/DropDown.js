@@ -3,6 +3,7 @@ import { Icon } from "@fluentui/react";
 import * as React from "react";
 import { Panel } from "./Panel";
 import { FontContext } from "../store/dictionary-context";
+import { Colors } from "../utils/constants";
 
 export const DropDown = (props) => {
   const { dropdownOptions } = props;
@@ -51,6 +52,10 @@ export const DropDown = (props) => {
           className={
             dropdownActive ? styles.dropdownMenuActive : styles.dropdownMenu
           }
+          style={{
+            backgroundColor:context.darkmodeEnabled 
+            ? Colors.CHARCOAL_GREY : Colors.WHITE            
+          }}
         >
           <div>
             {dropdownOptions.map((element, i) => {

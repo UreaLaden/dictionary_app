@@ -20,4 +20,8 @@ li::before {
     vertical-align: middle;
     margin-left:-1.5rem;
     box-sizing:border-box;
+    border-radius:100%;
+}
+#root{
+    height:100%;
 }
