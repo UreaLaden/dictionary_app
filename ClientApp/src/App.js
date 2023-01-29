@@ -16,10 +16,6 @@ export default class App extends Component {
     this.context.setFont(dropdownOptions[0].family)
   }
   
-  setSearchWord = (value) => {
-    this.setState({ searchWord: value });
-  };
-  
   render() {
     return (
       <Layout>

@@ -4,6 +4,7 @@ import { styles } from "./NavMenu.css";
 import { Icon, Toggle } from "@fluentui/react";
 import { DropDown } from "./DropDown";
 import { FontContext } from "../store/dictionary-context";
+import { Colors } from "../utils/constants";
 
 export class NavMenu extends Component {
   static displayName = NavMenu.name;
@@ -12,6 +13,10 @@ export class NavMenu extends Component {
   constructor(props) {
     super(props);
     this.searchRef = React.createRef();
+    this.toggleRef = React.createRef();
+    this.state = {
+      darkmodeEnabled: false,
+    };
   }
 
   handleSearch = (value) => {
@@ -26,7 +31,11 @@ export class NavMenu extends Component {
 
   optionSelectedHandler = (option) => {
     this.context.setFont(option.family);
-  }
+  };
+
+  onToggleButtonClicked = (event) => {
+    this.context.enableDarkmode(event.target.ariaChecked);
+  };
 
   async queryWord(word) {
     try {
@@ -43,7 +52,12 @@ export class NavMenu extends Component {
   }
 
   render() {
-    let toggleIcon = <Icon className={styles.moonIcon} iconName={"moon"} />;
+    let toggleIcon = (
+      <Icon
+        className={styles.moonIcon}
+        iconName={"moon"}
+      />
+    );
     return (
       <div className={styles.navBarContainer}>
         <header className={styles.navHeader}>
@@ -53,23 +67,31 @@ export class NavMenu extends Component {
             </div>
             <div className={styles.themes}>
               <div className={styles.fontFamily}>
-                <DropDown 
-                  dropdownOptions={this.context.fontOptions} 
-                  iconName={"arrow-down"} 
-                  selectOption={this.optionSelectedHandler} />
+                <DropDown
+                  dropdownOptions={this.context.fontOptions}
+                  iconName={"arrow-down"}
+                  selectOption={this.optionSelectedHandler}
+                />
               </div>
               <div className={styles.verticalDivider}></div>
               <Toggle
                 className={styles.toggle}
-                defaultChecked
+                ref={this.toggleRef}
+                defaultChecked={this.context.darkmodeEnabled}
                 inlineLabel
                 label={<div>{toggleIcon}</div>}
+                onChange={this.onToggleButtonClicked}
               />
             </div>
           </div>
           <SearchBox
-            className={styles.searchBox}
+            className={
+              this.context.darkmodeEnabled
+                ? styles.searchBoxDark
+                : styles.searchBoxLight
+            }
             ref={this.searchRef}
+            style={{ fontFamily: this.context.currentFont }}
             placeholder={"Search for any word..."}
             onSearch={this.handleSearch}
           />

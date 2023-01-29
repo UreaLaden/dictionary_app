@@ -5,6 +5,7 @@ import { styles } from "./Dictionary.css";
 import { PartOfSpeech } from "./PartOfSpeech";
 import { Icon } from "@fluentui/react";
 import { FontContext } from "../store/dictionary-context";
+import { Colors } from "../utils/constants";
 
 export class Dictionary extends Component {
   static displayName = Dictionary.name;
@@ -119,7 +120,9 @@ export class Dictionary extends Component {
           </h5>
           <>
             <a 
-              style={{fontFamily:this.props.currentFont}} 
+              style={
+                {fontFamily:this.props.currentFont,
+                  color:this.context.darkmodeEnabled ? Colors.WHITE : Colors.JET_BLACK}} 
               className={styles.source} href={details.sourceUrls}>
               {details.sourceUrls}
             </a>

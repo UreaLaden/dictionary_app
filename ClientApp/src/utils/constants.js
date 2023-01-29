@@ -32,6 +32,7 @@ export const icons = {
       width="22"
       height="22"
       viewBox="0 0 22 22"
+      id="moon-icon"
     >
       <path
         fill="none"
@@ -124,3 +125,19 @@ export const dropdownOptions = [
   { key: "B", text: "Serif", family: "Aliquam,serif" },
   { key: "A", text: "Mono", family: "Aliquam,monospace" },
 ];
+
+
+export const EnableDarkMode = (isEnabled) =>{
+    const body = document.body;
+    const moonIcon = document.getElementById('moon-icon').querySelector('path');
+    if(isEnabled){
+        body.style.backgroundColor = Colors.JET_BLACK
+        body.style.color = Colors.WHITE;
+        moonIcon.setAttribute('stroke',Colors.DARK_PURPLE);
+    }else{
+        body.style.backgroundColor = Colors.WHITE        
+        body.style.color = Colors.JET_BLACK;
+        moonIcon.setAttribute('stroke',Colors.CHARCOAL_GREY);
+    }
+    
+}

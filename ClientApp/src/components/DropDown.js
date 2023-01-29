@@ -2,12 +2,14 @@ import { styles } from "./DropDown.css";
 import { Icon } from "@fluentui/react";
 import * as React from "react";
 import { Panel } from "./Panel";
+import { FontContext } from "../store/dictionary-context";
 
 export const DropDown = (props) => {
   const { dropdownOptions } = props;
   const [currentOption, setCurrentOption] = React.useState({});
   const [dropdownActive, setDropdownActive] = React.useState(false);
   const dropdownRef = React.useRef(null);
+  const context = React.useContext(FontContext);
 
   React.useEffect(() => {
     setCurrentOption(dropdownOptions[0]);
@@ -56,6 +58,7 @@ export const DropDown = (props) => {
                 <Panel
                   key={i}
                   optionClass={styles.placeholder}
+                  theme={context.darkmodeEnabled}
                   option={element}
                   onOptionSelected={optionSelectedHandler}
                 />

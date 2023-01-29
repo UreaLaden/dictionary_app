@@ -1,15 +1,18 @@
 import * as React from "react";
+import { EnableDarkMode } from "../utils/constants";
 
 export const FontContext = React.createContext({
   currentFont: "",
   fontOptions: [],
   searchTerm: "",
   details:{},
+  darkmodeEnabled:false,
   setFont: (font) => {},
   addFontOption: (option) => {},
   setSearchTerm: (word) => {},
   updateWordDetails: (data) => {},
-  setIsLoading:() => {}
+  setIsLoading:() => {},
+  enableDarkmode:(enable) => {}
 });
 
 export const FontContextProvider = (props) => {
@@ -18,6 +21,12 @@ export const FontContextProvider = (props) => {
   const [searchWord, setSearchWord] = React.useState("");
   const [wordDetails,setWordDetails] = React.useState({});
   const [loading,setLoading] = React.useState(true);
+  const [isDarkMode,setIsDarkMode] = React.useState(false);
+
+  const setIsDarkModeHandler = (isEnabled) =>{
+    setIsDarkMode(isEnabled);
+    EnableDarkMode(isEnabled);
+  }
 
   const setSelectedFontHandler = (family) => {
     setSelectedFont(family);
@@ -48,11 +57,13 @@ export const FontContextProvider = (props) => {
     searchTerm:searchWord,
     details:wordDetails,
     isLoading:loading,
+    darkmodeEnabled:isDarkMode,
     setFont: setSelectedFontHandler,
     addFontOption: addFontOptionsHandler,
     setSearchTerm:setSearchWordHandler,
     updateWordDetails:updateDetailsHandler,
-    setIsLoading:setIsLoadingHandler
+    setIsLoading:setIsLoadingHandler,
+    enableDarkmode:setIsDarkModeHandler
   };
 
   return (

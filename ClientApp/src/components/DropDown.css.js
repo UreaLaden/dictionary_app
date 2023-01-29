@@ -12,8 +12,8 @@ export const styles = mergeStyleSets({
         fontSize:"1.2rem",
         fontWeight:"bold",
         ':hover':{
-            color:Colors.DARK_PURPLE,
-            cursor:'pointer',
+            color:`${Colors.DARK_PURPLE} !important`,
+            cursor:'pointer !important',
         }
     },  
     dropdownPlaceholder:{

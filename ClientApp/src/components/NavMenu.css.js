@@ -2,7 +2,7 @@
 import { Colors } from "../utils/constants";
 
 export const styles = mergeStyleSets({
-  searchBox: {
+  searchBoxLight: {
     borderRadius: "15px",
     display: "flex",
     flexDirection: "row-reverse",
@@ -16,6 +16,25 @@ export const styles = mergeStyleSets({
     input: {
       "::placeholder": {
         color: Colors.LIGHT_GREY_TWO,
+        fontWeight:"900px"
+      },
+    },
+  },
+  searchBoxDark: {
+    borderRadius: "15px",
+    display: "flex",
+    flexDirection: "row-reverse",
+    border: "none",
+    backgroundColor: Colors.CHARCOAL_GREY_DARK,
+    height: "100%",
+    padding: "2.5%",
+    fontSize: "1.2rem",
+    color: Colors.WHITE,
+    fontStyle: "bold",
+    input: {
+      color:Colors.WHITE,
+      "::placeholder": {
+        color: Colors.WHITE,
         fontWeight:"900px"
       },
     },
@@ -37,7 +56,7 @@ export const styles = mergeStyleSets({
   navHeader: {},
   navBarContainer: {},
   moonIcon: {
-    margin:'0'
+    margin:'0',
   },
   toggle: {
     gridColumn: "5 / -1",
