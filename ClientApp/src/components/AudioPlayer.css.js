@@ -30,6 +30,11 @@ export const styles = mergeStyleSets({
       height:"150%",
       width:"50%",
       transform:"translateY(-12%)"
+    },
+    "@media screen and (max-width:1440px)":{
+      height:"100%",
+      width:"50%",
+      transform:"translateY(-12%)"
     }
   },
   audio: {},

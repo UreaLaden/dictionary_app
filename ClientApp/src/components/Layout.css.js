@@ -7,6 +7,12 @@ export const styles = mergeStyleSets({
         height:"100%",
         width:"100%",
         maxWidth:"90%",
+        "@media screen and (min-width:1440px)":{
+            maxWidth:"70%"
+        },
+        "@media screen and (max-width:1440px)":{
+            maxWidth:"80%"
+        }
     },
     main:{
         padding:'5%',
