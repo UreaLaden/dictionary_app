@@ -14,6 +14,9 @@ export const styles = mergeStyleSets({
         ':hover':{
             color:`${Colors.DARK_PURPLE} !important`,
             cursor:'pointer !important',
+        },
+        "@media screen and (max-width:750px)":{
+            fontSize:"1rem"
         }
     },  
     dropdownPlaceholder:{
